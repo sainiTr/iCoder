@@ -1,0 +1,118 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Checkout Products{% endblock title %}
+
+{% block body %}
+
+<div class="container my-4">
+  <div class="col card py-2">
+    <h2>Step 1 - My Awesome Cart Express Checkout - Review Your Cart Items </h2>
+    <div class="items">
+      <ul class="list-group" id="items">
+      </ul>
+    </div>
+  </div>
+  <div class="col card py-2 my-4">
+    <h2>Step 2 - Enter Address & Other Details: </h2>
+    <form method="post" accept="/shoppingmall/checupdatekoutprod">
+      {% csrf_token %}
+      <input type="hidden" name="cartjson" id="cartjson">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="fname">First Name</label>
+          <input required type="text" class="form-control" id="fname" name="fname">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lname">Last Name</label>
+          <input required type="text" class="form-control" id="lname" name="lname">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="email">Email</label>
+          <input required type="email" class="form-control" id="email" name="email">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="phone">Phone: </label>
+          <input required type="tel" class="form-control" id="phone" name="phone">
+          <input required type="hidden" class="form-control" id="amount" name="amount">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="addr1">Address</label>
+        <input required type="text" class="form-control" id="addr1" placeholder="home no. str. vill." name="addr1">
+      </div>
+      <div class="form-group">
+        <label for="addr2">Land Mark</label>
+        <input type="text" class="form-control" id="addr2" name="addr2" placeholder="Building or place">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="city">City</label>
+          <input required type="text" class="form-control" id="city" name="city">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="state">State</label>
+          <input required type="text" class="form-control" id="state" name="state">
+        </div>
+        <div class="form-group col-md-2">
+          <label for="zip_code">Zip</label>
+          <input required type="text" class="form-control" id="zip_code" name="zip_code">
+        </div>
+      </div>
+
+      <button style="pointer-events:none;" id="submit" type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+  </div>
+</div>
+
+{% endblock body %}
+
+{% block js %}
+
+<script>
+  cart = JSON.parse(localStorage.getItem('cart'));
+  console.log(cart);
+  let count = 1
+  for (let item in cart) {
+
+    liststr = `
+    <li class="list-group-item d-flex  align-items-center" style="position:relative;">
+      <span  style="font-weight:bold;" >${count}.</span>
+      <img class="mx-2" src='${cart[item][2]}' width="50px" height="30px">
+      <div>
+        <h6 class="text-capitalize">${cart[item][1]}</h6>
+        <span>${cart[item][3].slice(0, -4)}</span>
+        <span class="badge badge-primary badge-pill" style="position:absolute;right:7px;">  ${cart[item][0]}</span>
+      </div>
+      </li>  `
+    $('#items').append(liststr)
+    count += 1
+  }
+
+  let total_price = 0;
+  console.log(Object.keys(cart).length)
+
+  if (Object.keys(cart).length >= 1) {
+
+    for (let item in cart) {
+      for (let index = 0; index < cart[item][0]; index++) {
+        total_price += parseInt(cart[item][3].slice(7, -5))
+      }
+    }
+    $('#items').append(`<li class="list-group-item d-flex  align-items-center" style="text-align:right;font-weight:bold;padding-right:10%;color:crimson;" > 
+      <span   style="position:absolute;left:10%;">Total Price : </span>
+      <span style="position:absolute;right:12%;"  id="totalprice" >${total_price}</span> </li> `)
+
+    $('#cartjson').val(JSON.stringify(cart))
+    document.getElementById('submit').style.pointerEvents = 'all';
+  }
+  else {
+    $('#items').append(`<li class="list-group-item " style="text-align:left;font-weight:bold;padding-right:10%;color:crimson;" > 
+      <span class="btn-primary px-1">
+      I Got your cart is Empty!. Add Some Producs OR At list one product to continue to shoppig </span> </li> `)
+
+  }
+  console.log(`The catck is : ${localStorage.length}`)
+  $('#amount').val($('#totalprice').html())
+</script>
+
+{% endblock js %}

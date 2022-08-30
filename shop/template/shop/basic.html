@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title> {% block title %} {% endblock title %} </title>
+  {% block style %}
+  {% endblock style %}
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,300&display=swap" rel="stylesheet">
+  <style>
+    /* width */
+    ::-webkit-scrollbar {
+      width: 2px;
+      /* display: none; */
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      opacity: 0px;
+
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgb(0, 219, 215);
+      opacity: 0px;
+
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      width:30px;
+      background: rgb(16, 50, 78);
+      opacity: 0px;
+
+    }
+  </style>
+</head>
+
+<body>
+  {% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">MyDailyCode</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/shoppingmall">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">My Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="/shoppingmall/contact">Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="/shoppingmall/about">About Us</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link disabled" href="/shoppingmall/tracker">Tracker</a>
+        </li>
+      </ul>
+      <form action="/shoppingmall/search" method="get" class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">All</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">laptop</a>
+              <a class="dropdown-item" href="#">smart phone</a>
+              <a class="dropdown-item" href="#">Cloths</a>
+              <a class="dropdown-item" href="#">Makeup Kit</a>
+              <a class="dropdown-item" href="#">Music</a>
+              <a class="dropdown-item" href="#">Begs</a>
+
+            </div>
+          </li>
+        </ul>
+        <input name="search" id="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <span class="mx-2">
+
+        <button style="background-color:transparent;border:none;padding: 0;" type="button" id="popcart"
+          class="btn btn-secondary my-0" data-container="body" data-toggle="popover" data-placement="bottom"
+          data-html="true">
+          Cart
+        </button> <sup id="cartnum" style="color:orange;">0</sup>
+      </span>
+      {% if not image %}
+      <a href="/shoppingmall/profile">
+        <img width='40px' height='40px' style="border-radius: 50%;" src="{% static 'shop/profile.png' %}" alt="tr"></a>
+
+
+      {% else %}
+      <a href="/shoppingmall/profile" title="{{user}}">
+        <img width='40px' height='40px' style="border-radius: 50%;" src="/media/{{image}}" alt="tr"></a>
+      <sup>
+
+        <button type="button" id="profilecart" class="btn btn-secondary px-0 py-0"
+          style="background-color:transparent;border:none;" data-container="body" data-html="true" data-toggle="popover"
+          data-placement="top"
+          data-content='<a href="/shoppingmall/logout"><button type="button" class="btn btn-primary py-0 px-1 mx-0 my-0">Logout</button></a>'>
+
+          <img src="{% static 'shop/option.png' %}" alt="">
+        </button>
+      </sup>
+      {% endif %}
+
+
+
+    </div>
+  </nav>
+
+  <div class="container">
+
+  </div>
+
+  {% block body %}
+  {% endblock body %}
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+  {% block js %}
+  <script>
+    function displayView(v) {
+      if (v == 1) {
+
+        document.getElementById('viewprofile').style.display = 'block'
+      }
+      else if (v == 2) {
+        document.getElementById('viewprofile').style.display = 'none'
+      }
+    }
+  </script>
+  <script>
+    let cart = ''
+    if (localStorage.getItem('cart') == null) {
+      cart = {};
+    }
+    else {
+      cart = JSON.parse(localStorage.getItem('cart'));
+      UpdateValue(cart);
+      UpdateCart(cart)
+      UpdatePopover(cart);
+    }
+
+    $('.divpr').on('click', 'button.cart', function () {
+      let idstr = this.id.toString();
+      if (cart[idstr] != undefined) {
+        cart[idstr] = cart[idstr][0] + 1
+      }
+      else {
+        qnt = 1
+        names = document.getElementById('name' + idstr).innerHTML;
+        image = document.getElementById('image' + idstr).src;
+        price = document.getElementById('price' + idstr).innerHTML;
+        cart[idstr] = [qnt, names, image, price]
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      UpdateValue(cart);
+      UpdateCart(cart);
+      UpdatePopover(cart);
+
+    });
+
+    function UpdateValue(cart) {
+      let totoal = 0;
+      for (value in cart) {
+        totoal = totoal + cart[value][0]
+      }
+      document.getElementById('cartnum').innerHTML = totoal;
+    }
+
+    function UpdateCart(cart) {
+      for (let item in cart) {
+        document.getElementById('cart' + item).innerHTML = '<button id="minus' + item.slice(2,) + '"  type="button" class="btn btn-primary minus"" style="width:fit-content;">-</button> <span id="val' + item.slice(2,) + '" >' + cart[item][0] + '</span> <button id="plus' + item.slice(2,) + '" type="button" class="btn btn-primary plus" style="width:fit-content;">+</button>'
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    $('.divpr').on('click', 'button.minus', function () {
+      cartid = this.id.slice(5,)
+      cart['pr' + cartid][0] = cart['pr' + cartid][0] - 1
+      cart['pr' + cartid][0] = Math.max(0, cart['pr' + cartid][0])
+      if (cart['pr' + cartid][0] == 0) {
+        delete cart['pr' + cartid]
+
+        document.getElementById('cartpr' + cartid).innerHTML = '<button class="btn btn-primary cart" id="pr' + cartid + '" style="font-size:12px;"> <img width="24px" height="24px" src="https://cdn-icons-png.flaticon.com/128/891/891407.png" alt="">Add to Cart</button>'
+      }
+
+      else {
+
+        document.getElementById('val' + cartid).innerHTML = cart['pr' + cartid]
+      }
+      UpdateValue(cart);
+      UpdateCart(cart);
+      UpdatePopover(cart);
+
+    });
+
+    $('.divpr').on('click', 'button.plus', function () {
+      cartid = this.id.slice(4,)
+      cart['pr' + cartid][0] = cart['pr' + cartid][0] + 1
+      document.getElementById('val' + cartid).innerHTML = cart['pr' + cartid][0]
+      UpdateCart(cart);
+      UpdateValue(cart);
+      UpdatePopover(cart);
+
+    });
+
+    function UpdatePopover(cart) {
+
+      popstr = ''
+      popstr = popstr + '<h5>Your Cart Items</h6> <button onclick="ClearCart()" class="btn btn-primary py-0 px-1">Clear Cart</button> <a href="/shoppingmall/checkoutprod/multimple"  class="btn btn-primary py-0 px-1">Checkout</a> <div  style="max-height:450px;overflow-y:scroll;">'
+      itemn = 1
+      for (let item in cart) {
+        popstr = popstr + ' <span style="font-weight:bold;color:orange;">' + itemn + '. </span><p style="font-weight:bold;"> <img class="mx-2" width="25px" height="18px" src="' + document.getElementById('image' + item).src + '">' + document.getElementById('namepr' + item.slice(2,)).innerHTML + '!! (<span>QNT: ' + cart[item][0] + '</span>)</p> <span style="font-weight:bold;color:orange;">' + document.getElementById('price' + item).innerHTML + '</span>' + '<div> <a class="btn btn-primary py-0 mx-20" style="font-size:12px;color:white;" onclick="DeleteCartItem(this)" id="delete' + item.slice(2,) + '" >Delete</a>  <a href="/shoppingmall/productview/' + item.slice(2,) + '" class="btn btn-primary py-0 mx-2" style="font-size:12px;" id="view' + item.slice(2,) + '">View</a></div>'
+        itemn += 1
+      }
+      popstr = popstr + '</div>'
+      document.getElementById('popcart').setAttribute('data-content', popstr);
+      $('#popcart').popover('show')
+    }
+    function DeleteCartItem(obj) {
+
+      delete cart['pr' + obj.id.slice(6,)]
+
+      document.getElementById('cartpr' + obj.id.slice(6,)).innerHTML = '<button class="btn btn-primary cart" id="pr' + obj.id.slice(6,) + '" style="font-size:12px;"><img width="24px" height="24px" src="https://cdn-icons-png.flaticon.com/128/891/891407.png" alt=""> Add to Cart</button>'
+
+      UpdateValue(cart);
+      UpdateCart(cart);
+      UpdatePopover(cart);
+
+    }
+
+    function ClearCart() {
+      cart = JSON.parse(localStorage.getItem('cart'))
+      for (let item in cart) {
+        document.getElementById('cartpr' + item.slice(2,)).innerHTML = '<button class="btn btn-primary cart" id="pr' + item.slice(2,) + '" style="font-size:12px;"><img width="24px" height="24px" src="https://cdn-icons-png.flaticon.com/128/891/891407.png" alt=""> Add to Cart</button>'
+      }
+      localStorage.clear()
+      cart = {}
+      $('#popcart').popover()
+      UpdateValue(cart);
+      UpdateCart(cart);
+      UpdatePopover(cart);
+
+    }
+
+    $('#popcart').popover()
+    $('#profilecart').popover()
+
+  </script>
+  {% endblock js%}
+
+</body>
+
+</html>

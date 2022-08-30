@@ -1,0 +1,115 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Checkout Product{% endblock title %}
+
+{% block body %}
+<div class="container my-4">
+    <div class="col card py-2">
+        <h2>My Awesome Cart Express Tracker - Track Your Order Status</h2>
+        <form method="post" accept="#" id="trackerForm">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Orerid">Order Id</label>
+                    <input required type="text" class="form-control" id="orderid" name="orderid" placeholder="Orerid">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input required type="email" class="form-control" id="email" name="email"
+                        placeholder="email address">
+                </div>
+                <button type="submit" id="trackorder" class="btn btn-primary">Track Order</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col card py-2 my-4">
+        <h2>Your Order update Status </h2>
+        <ol class="list-group list-group-numbered" id="items">
+            <p style="color:orange;font-weight:bold;">To track your order please enter your order Id and Ragistered
+                Email account</p>
+        </ol>
+    </div>
+    <div class="col card py-2 my-4">
+        <h2>Your Order details: </h2>
+        <ol class="list-group list-group-numbered" id="Ditems">
+            <p style="color:orange;font-weight:bold;"></p>
+        </ol>
+    </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+<script>
+
+    $('#trackerForm').submit(function (envet) {
+        $('#items').empty();
+        $('#Ditems').empty()
+
+        let formData = {
+            'orderid': $('input[name=orderid]').val(),
+            'email': $('input[name=email]').val(),
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/shoppingmall/tracker',
+            data: formData,
+            encode: true
+        })
+            .done(function (data) {
+                if (data != 'error') {
+                    updates = JSON.parse(data)
+                    for (item in updates[0]) {
+                        liststr = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            ${parseInt(item) + 1}.
+                        <div class="fw-bold ml-3"><h6> ${updates[0][item].desc}</h6></div>
+                        <span style="color:silver;">OrderId :<b> ${updates[0][item].text}</b></span>
+                        </div>
+                        <span class="badge rounded-pill" style="color:crimson;">Date: ${updates[0][item].time}</span>
+                    </li>`
+
+                        $('#items').append(liststr)
+                    }
+                    cart = JSON.parse(updates[1])
+                    console.log(cart)
+                    total = 0
+                    count = 1
+                    for (let item in cart) {
+                        strlist = `<li class="list-group-item d-flex justify-content-between align-items-start">
+                            
+                        <div class="ms-2 me-auto">${count}.
+                            <div class="fw-bold ml-3"><h6><span> <img widht="50px" height="30px" src="${cart[item][2]}"> </span>  ${cart[item][1]} </h6></div>
+                        </div>
+                            <span class="badge rounded-pill" style="color:crimson;">${cart[item][3]}</span>
+                        
+                        </li>`;
+                        $('#Ditems').append(strlist)
+                        total = total+parseInt((cart[item][3].slice(7,-5)))
+                        count+=1
+
+                    }
+                  
+                    $("#Ditems").append(`<li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold ml-3"><h5>Total Price</h5></div>
+                        </div>
+                            <span class="badge rounded-pill" style="color:crimson;"><u> ${total}</u></span>
+                        
+                        </li>`)
+                }
+                else {
+
+                    liststr = ` <div class="alert alert-danger" role="alert">
+                        Sorry You Enter wrong Inputes for OrderId and Email !  \nPlease... Enter valid details for track your order!!
+                    </div> `
+                    $('#items').append(liststr)
+                }
+
+            });
+        event.preventDefault();
+    });
+
+</script>
+{% endblock js %}

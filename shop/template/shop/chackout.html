@@ -1,0 +1,63 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Upload Product{% endblock title %}
+
+
+{% block body %}
+
+
+
+<div class="attachment-form-container container">
+    <h1 style='text-align:center;margin-top: 5px;'> Upload A New Product</h1>
+    <form name="mailForm" id="mailForm" method="post" action="uploadnew" class="my-3" style="text-align:center;box-shadow: 0 0 5px rgb(62, 189, 123);padding: 8px 0px;">
+        {% csrf_token %}
+
+        <label style="text-align: left;width: 70%;text-align: left;width: 70%; padding-top: 20px;font-size: 20px;">Product Name</label> 
+        <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);" type="text"  name="name"  />
+        <br>
+        <br>
+
+        <label style="text-align: left;width: 70%;font-size: 20px;">Product Price</label> 
+        <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);"
+            type="text" class="input-field" name="price" id="userEmail" />
+        <br>
+        <br>
+
+        <label style="text-align: left;width: 70%;font-size: 20px;">Category</label>
+         <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);"
+            type="text" class="input-field" name="category" id="subject" />
+        <br>
+        <br>
+        <label style="text-align: left;width: 70%;font-size: 20px;">Sub-Category</label> 
+         <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);"
+            type="text" class="input-field" name="subcat" id="subject" />
+        <br>
+        <br>
+        <label style="text-align: left;width: 70%;font-size: 20px;">Publish Date</label>
+         <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);"
+            type="date" class="input-field" name="date" id="subject" />
+        <br>
+        <br>
+        <label style="text-align: left;width: 70%;font-size: 20px;">Available Products</label>
+         <input style="width: 70%;box-shadow: 0px 0px 2px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);"
+            type="number" class="input-field" name="available" id="subject" />
+        <br>
+        <br>
+        
+        <label style="text-align: left;width: 70%;font-size: 20px;box-shadow: 0px 0px 2px rgb(62, 189, 123);">
+            Upload Product Image:
+            <input style="width: 70%;box-shadow: 0px 0px 5px rgb(62, 189, 123);border: none;outline-color: rgb(0, 255, 225);" type="file"  name="image">
+        </label>
+        <br>
+        <br>
+        
+        <label style="text-align: left;width: 70%;font-size: 20px;">Product Discription</label> 
+        <textarea style="outline-color: rgb(0, 255, 225);border-radius:5px; width:70% ;height:100px;" name="desc"  ></textarea>
+            <br>
+        <br>
+        <input style="width: 12rem;outline-color: rgb(0, 255, 225);border-radius:5px;border: none;box-shadow: 0px 0px 5px rgb(62, 189, 123);font-size: 18px;" type="submit" name="send" class="btn-submit" value="Upload Product" />
+
+
+    </form>
+</div>
+
+{% endblock body %}

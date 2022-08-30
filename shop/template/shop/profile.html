@@ -1,0 +1,73 @@
+{% extends 'shop/basic.html' %}
+{% block title %}User Profile{% endblock title %}
+
+{% block body %}
+
+<h3 class="my-2 mx-2" style="text-align:left;">{{data| capfirst}} </h3>
+{% load static %}
+<section class="card-body py-2" style="display:flex;flex-wrap: wrap;justify-content: center;">
+
+    <div class=" mx-2 px-0 my-2" style="width:fit-content;">
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="text-align:center;" class="card-title">Upload A new Blog</h4>
+                    <img src="{% static 'shop/addnew.png'%}" alt="">
+                    <a href="/shoppingmall/uploadnew" class="btn btn-primary">Upload New</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" mx-2 px-0 my-2" style="width:fit-content;">
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="text-align:center;" class="card-title">Update A Existing Blog</h4>
+                    <img src="{% static 'shop/addnew.png'%}" alt="">
+                    <a href="#" class="btn btn-primary">Update Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" mx-2 px-0 my-2" style="width:fit-content;">
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="text-align:center;" class="card-title">Delete A Existing Blog</h4>
+                    <img src="{% static 'shop/addnew.png'%}" alt="">
+                    <a href="#" class="btn btn-primary">Delete Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" mx-2 px-0 my-2" style="width:fit-content;">
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="text-align:center;" class="card-title">Creat A New Update for Orders</h4>
+                    <img src="{% static 'shop/addnew.png'%}" alt="">
+                    <a href="ordernewupdate" class="btn btn-primary">Update Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" mx-2 px-0 my-2" style="width:fit-content;">
+        <div class="col-lg-15">
+            <div class="card">
+                <div class="card-body">
+                    <h4 style="text-align:center;" class="card-title">Creat A New Blog</h4>
+                    <img src="{% static 'shop/addnew.png'%}" alt="">
+                    <a href="/showblogs/create-new-blog" class="btn btn-primary">Create Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+{% endblock body %}

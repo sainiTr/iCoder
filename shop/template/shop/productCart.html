@@ -1,0 +1,31 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Product Cart{% endblock title %}
+
+{% block body %}
+
+{% load static %}
+
+<div class="container my-2" style="display:flex ;flex-wrap: wrap;">
+    {% for item in data %}
+
+    <a style="color: black;" href="/shop/productview">
+    <div class="card my-2 mx-2" style="width: 18rem;box-shadow:  0 0 3px rgb(0, 255, 251); padding: 4px;">
+        <img class="card-img-top" src="/media/{{item.image}} " alt="Card image cap" height="130px" style=" border-radius:5px; box-shadow: 0 0 5px rgb(223, 222, 222) ;">
+        <h5 class="mx-2">{{item.name}} </h5>
+        <h6 class="mx-2">price: {{item.price}}&#x20b9;.</h6>
+        <div class="card-body" style="pointer-events:none ;">
+
+            <p class="card-text my-2" style="height: 45px; overflow: hidden;">{{item.desc}}</p>
+
+            <a href="#" class="btn btn-primary cart" id="pr{{item.id}}" style="font-size:12px;margin-right:20px;">
+                <img width="24px" height="24px" src="{% static 'shop/remove.png'%}" alt=""> Remove</a>
+            <a href="#" class="btn btn-primary cart" id="pr{{item.id}}" style="font-size:12px;">
+                <img width="24px" height="24px" src="{% static 'shop/sho[.png'%}" alt=""> Shop Now</a>
+        </div>
+    </div>
+</a>
+    {% endfor %}
+
+</div>
+
+{% endblock body %}

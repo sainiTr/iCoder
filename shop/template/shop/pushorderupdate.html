@@ -1,0 +1,77 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Order New Upate{% endblock title %}
+
+{% block body %}
+
+<!-- <div class="container my-4">
+    <div class="col card py-2">
+        <h2>My Awesome Cart Express Tracker - Track Your Order Status</h2>
+        <form method="post" accept="#" id="trackerForm">
+            {% csrf_token %}
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input required type="email" class="form-control" id="email" name="email" placeholder="email address">
+            </div>
+            <button type="submit" id="trackorder" class="btn btn-primary">Track Order</button>
+    </div>
+    </form>
+</div> -->
+<h1 style="text-align:center;">Crearte A New Upate For Order Status</h1>
+<div class="card px-2 py-2 mx-2">
+    <div class="list-group my-2 px-2 py-2">
+
+        {% for items in updates %}
+        <div  class="list-group-item list-group-item-action active my-1  "
+            aria-current="true">
+            <div id="update{{items.0}}" class="update">
+
+                <div class=" col d-flex w-100 justify-content-between">
+                    <h5 class="mb-1" style="font-family:Georgia, 'Times New Roman', Times, serif;">Order ID :
+                        {{items.0}}
+                    </h5>
+                    <small><b>Date: {{items.2}}</b></small>
+                </div>
+                <p class="mb-1"> <b style="font-size:15px;"> Last Update : </b>{{items.1}}.</p>
+                <span style="font-family:'Courier New', Courier, monospace;">Push A New Update</span>
+            </div>
+            <form method="post" class="formupdate" accept="/shoppingmall/ordernewupdate" id="form{{items.0}}"
+                style="display:none;">
+                {% csrf_token %}
+                <div class="form-group col">
+                    <label for="email">New Update</label><br>
+                    <input type="hidden" name="update_id" value="{{items.0}}">
+                    <textarea required name="newudate" placeholder="white a new update..."
+                        style="width:80%; height:60px;resize:none; border-radius:6px; font-size: 16px; outline: none;resize:both;"></textarea>
+                </div>
+                <button type="submit" class="btn" style="font-weight:bold;">Push Update</button>
+            </form>
+        </div>
+
+        {% endfor %}
+    </div>
+
+</div>
+</div>
+{% endblock body %}
+
+{% block js %}
+
+<script>
+    let upvalue = 0;
+    $('.update').click(function () {
+        form_di = this.id.slice(6,)
+
+        if (upvalue == 0) {
+            document.getElementById('form' + form_di).style.display = 'block';
+            upvalue = 1
+        }
+        else {
+            document.getElementById('form' + form_di).style.display = 'none';
+            upvalue = 0
+
+        }
+
+    });
+</script>
+
+{% endblock js %}
